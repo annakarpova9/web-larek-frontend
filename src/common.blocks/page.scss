@@ -6,6 +6,7 @@ html, body.page {
 	font-size: $baseFontSize;
 	color: $baseFontColor;
 	background: $background;
+  scrollbar-width: none;
 }
 
 .page__wrapper {

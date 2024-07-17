@@ -9,6 +9,7 @@
   color: white;
   padding: $defaultPadding;
 
+
   &_full {
     flex-direction: row;
     background-color: transparent;
@@ -50,6 +51,7 @@
     font-weight: 500;
     margin: 0;
     flex-grow: 1;
+    text-align: start;
   }
   &__text {
     text-align: left;

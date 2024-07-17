@@ -1,58 +1,67 @@
-export interface ICard {
+// Типы данных
+
+// Товар
+
+export interface IProduct {
 	id: string;
 	description: string;
 	image: string;
 	title: string;
-	category: string;
+	category: EProductCategory;
 	price: number | null;
-}
+} // товар
+
+export enum EProductCategory {
+	'софт-скил' = 'soft',
+	'хард-скил' = 'hard',
+	'другое' = 'other',
+	'дополнительное' = 'additional',
+	'кнопка' = 'button',
+} // категории товара
+
+// Заказ
 
 export interface IOrder {
-	payment: TPayment;
-	address: string;
+	payment: string;
 	email: string;
 	phone: string;
+	address: string;
 	total: number | null;
-	items: TCardId[];
+	items: string[];
+} // заказ
+
+export type IOrderForm = Partial<Omit<IOrder, 'total' | 'items'>>; // формы заказа
+
+export type TFormErrors = Partial<Record<keyof IOrderForm, string>>; // ошибки формы
+
+export interface IOrderResult {
+	id: string;
+	total: number;
+} // при успешной отправке заказа на сервер
+
+// Api
+
+export type TApiPostMethods = 'POST' | 'PUT';
+
+export interface IApi {
+	baseUrl: string;
+	get<T>(uri: string): Promise<T>;
+	post<T>(uri: string, data: object, method?: TApiPostMethods): Promise<T>;
 }
 
-export type TPayment = 'online' | 'cash'; // тип данных вида оплаты
+// Events
 
-export type TCardId = Pick<ICard, 'id'>; // тип данных для id карточки
-
-export type TCardPage = Pick<ICard, 'image' | 'title' | 'category' | 'price'>; // тип данных карточки при отображении на главной странице
-
-export type TCardInfo = Pick<ICard, 'description' | 'image' | 'title' | 'category' | 'price'>; // тип данных карточки при присмотре выбранной карточки в модальном окне
-
-export type TCardBasket = Pick<ICard, 'title' | 'price'>; // тип данных карточки, используемый в корзине
-
-export type TOrderTotal = Pick<IOrder, 'total'>; // тип данных полной суммы заказа в модальных окнах
-
-export type TOrderPayAddress = Pick<IOrder, 'payment' | 'address'>; // тип данных способа оплаты и адреса при оформлении заказа
-
-export type TOrderContacts = Pick<IOrder, 'email' | 'phone'>; // тип данных контактной информации при оформлении заказа
-
-
-export interface ICardsData {
-  cards: ICard[]; // массив объектов карточек
-  preview: TCardId | null; // id карточки, выбранной для просмотра в модальном окне или добавленной в корзину
-  getCardList(): ICard[]; // получает массив карточек с сервера
-  getCard(cardId: TCardId): ICard; // получает карточку по id
-  hasInBasket(cardId: TCardId, basketCards: TCardId[]): boolean; // проверяет добавлена ли карточка в корзину(также для дальнейшего поведения кнопки "В корзину/Убрать из корзины")
-  hasPriceNull(price: number | null): boolean; // проверяет цену на null, для дальнейшего изменения поведения кнопки "В корзину" - active/disable
-}
-
-export interface IOrderData {
-  orderData: IOrder; // объект заказа
-  setOrderInfo(orderData: IOrder): void; // отправляет данные для оформления заказа на сервер
-  checkValidation(data: Record<keyof TOrderPayAddress & TOrderContacts, string>): boolean; // проверяет валидацию данных в форме
-}
-
-export interface IBasketData {
-  basketCards: ICard[]; // список добавленных карточек в корзину
-  getBasketCards(): ICard[]; // получает список добавленных карточек
-  addCard(card: TCardBasket): void; // добавляет карточку в корзину, после проверки добавленности карточки
-  deleteBasketCard(TCardId: string): void; // удаляет карточку из корзины
-  getTotal(prices: number[] | null): TOrderTotal; // получает общую суммы заказа
-  clearBasketCards(): void; // удаление всех карточек из корзины при успешном оформлении заказа
+export enum Events {
+	CARDS_CHANGED = 'cards:changed',
+	PREVIEW_SELECT = 'preview:select',
+	MODAL_OPEN = 'modal:open',
+	MODAL_CLOSE = 'modal:close',
+	PRODUCT_ADD_TO_BASKET = 'product:add-to-basket',
+	PRODUCT_DELETE_FROM_BASKET = 'product:delete-from-basket',
+	BASKET_CHANGE = 'basket:change',
+	ORDER_OPEN = 'order:open',
+	ORDER_SUBMIT = 'order:submit',
+	FORM_ERRORS_CHANGE = 'formErrors:change',
+	CONTACTS_SUBMIT = 'contacts:submit',
+	ORDER_READY = 'order:ready',
 }
