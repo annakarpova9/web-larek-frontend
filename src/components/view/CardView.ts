@@ -6,7 +6,6 @@ import { EProductCategory } from '../../types';
 
 interface ICardActions {
 	onClick: (event: MouseEvent) => void;
-	onClickPreview?: (event: MouseEvent) => void;
 }
 
 export class Card extends Component<ProductModel> {
@@ -119,8 +118,6 @@ export class CardPreview extends CardCatalog {
 					this.button,
 					state.stateInBasket ? 'Убрать из корзины' : 'В корзину'
 				);
-				this.button.removeEventListener('click', this.actions.onClick);
-				this.button.addEventListener('click', this.actions.onClickPreview);
 			}
 		}
 	}

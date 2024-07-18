@@ -52,16 +52,18 @@ export interface IApi {
 // Events
 
 export enum Events {
-	CARDS_CHANGED = 'cards:changed',
+	CARDS_ADDED = 'cards:added',
 	PREVIEW_SELECT = 'preview:select',
 	MODAL_OPEN = 'modal:open',
 	MODAL_CLOSE = 'modal:close',
 	PRODUCT_ADD_TO_BASKET = 'product:add-to-basket',
 	PRODUCT_DELETE_FROM_BASKET = 'product:delete-from-basket',
-	BASKET_CHANGE = 'basket:change',
+  BASKET_OPEN = 'basket:open',
+  BASKET_CHANGE = 'basket:change',
 	ORDER_OPEN = 'order:open',
 	ORDER_SUBMIT = 'order:submit',
 	FORM_ERRORS_CHANGE = 'formErrors:change',
 	CONTACTS_SUBMIT = 'contacts:submit',
 	ORDER_READY = 'order:ready',
+	ORDER_CLEAN = 'order:clean',
 }

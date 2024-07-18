@@ -32,9 +32,9 @@ export class PageView extends Component<IPageView> {
 			this.container
 		);
 
-		this._basketButton.addEventListener('click', () =>
-			this.events.emit(Events.BASKET_CHANGE)
-		);
+		this._basketButton.addEventListener('click', () => {
+			this.events.emit(Events.BASKET_OPEN);
+		});
 	}
 
 	set catalog(items: HTMLElement[]) {

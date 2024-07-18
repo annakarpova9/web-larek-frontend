@@ -45,7 +45,7 @@ export class AppModel extends Model<IAppModel> {
 
 	setCatalog(items: IProduct[]) {
 		this.catalog = items.map((item) => new ProductModel(item, this.events));
-		this.emitChanges(Events.CARDS_CHANGED, { catalog: this.catalog });
+		this.emitChanges(Events.CARDS_ADDED, { catalog: this.catalog });
 	}
 
 	getInBasket(product: IProduct) {
@@ -64,15 +64,10 @@ export class AppModel extends Model<IAppModel> {
 
 	removeFromBasket(product: IProduct) {
 		this.basket = this.basket.filter((item) => item !== product);
-		this.emitChanges(Events.BASKET_CHANGE, {
-			items: this.basket,
-			total: this.getTotal(),
-		});
 	}
 
 	clearBasket() {
 		this.basket = [];
-		this.emitChanges(Events.CARDS_CHANGED, { catalog: this.catalog });
 	}
 
 	clearOrder() {

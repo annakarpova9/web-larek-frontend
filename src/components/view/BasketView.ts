@@ -50,7 +50,7 @@ export class BasketView extends Component<IBasketView> {
 		this.setText(this._total, `${String(total)} синапсов`);
 	}
 
-	render(data: IBasketView) {
+	render(data?: IBasketView) {
 		if (!data) return this.container;
 		return super.render({ items: data.items, total: data.total });
 	}

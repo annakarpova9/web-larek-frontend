@@ -122,7 +122,7 @@ interface IApi {
 
 ```
 export enum Events {
-	CARDS_CHANGED = 'cards:changed',
+	CARDS_ADDED = 'cards:added',
 	PREVIEW_SELECT = 'preview:select',
 	MODAL_OPEN = 'modal:open',
 	MODAL_CLOSE = 'modal:close',
@@ -318,12 +318,13 @@ export enum Events {
 В `index.ts` сначала создаются экземпляры всех необходимых классов, а затем настраивается обработка событий.
 
 Список всех событий, которые могут генерироваться в системе:
-- `cards:changed` - изменение массива карточек;
+- `cards:added` - изменение массива карточек;
 - `preview:selected` - изменение открываемой в модальном окне картинки карточки;
-- `modal: open` - открытие модального окна;
-- `modal: close` - закрытие модального окна;
+- `modal:open` - открытие модального окна;
+- `modal:close` - закрытие модального окна;
 - `product:add-to-basket` - продукт добавлен в корзину;
 - `product:delete-from-basket` - продукт удален из корзины;
+- `basket:open` - открытие корзины;
 - `basket:change` - корзина изменилась;
 - `order:open` - открыта форма заказа;
 - `order.payment:change` - изменилось поле оплаты заказа;
@@ -333,4 +334,5 @@ export enum Events {
 - `order:submit` - открыта вторая форма заказа;
 - `formErrors:change` - изменились ошибки;
 - `contacts:submit` - заказ корректно заполнен;
-- `order:ready` - заказ готов.
+- `order:ready` - заказ готов;
+- `order:clean` - заказ очищен.
